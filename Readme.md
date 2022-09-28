@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм (простой)»
 
 * Студент: [Юрий Сажнев](https://up.htmlacademy.ru/javascript/27/user/2016315).
-* Наставник:[Дина Абрамова](https://htmlacademy.ru/profile/id1483099).
+* Наставник: [Дина Абрамова](https://htmlacademy.ru/profile/id1483099).
 
 ---
 
