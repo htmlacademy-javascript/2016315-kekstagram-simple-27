@@ -7,7 +7,9 @@ const ID_COUNT = {
   MIN: 1,
   MAX: 25,
 };
-const DESCRIPTIONS_COUNT = 'Передо мной интересная фотография.';
+const DESCRIPTIONS_COUNT = [
+  'Передо мной интересная фотография.',
+];
 const COMMENTS_COUNT = {
   MIN: 0,
   MAX: 200,
@@ -24,17 +26,8 @@ function getRandomNumber (min, max) {
 //  return (testString.length >= minStringLength && testString.length <= maxStringLength);
 //}Функция длины строки
 
-//const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)]; //Функция элемента в переданном массиве по поиску случайного элемента.
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)]; //Функция элемента в переданном массиве по поиску случайного элемента.
 
-const getRandomNumberRepeat = (min, max) => {
-  const number = Math.floor(min + Math.random() * (max - min))
-  if (numbers.includes(number))
-  return getRandomNumberRepeat(min, max)
-  else {
-    numbers.push(number)
-    return number
-  }
-}
 
 function createRandomIdFromRangeGenerator (min, max) {
   const previousValues = [];
@@ -53,15 +46,15 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-function createComment () {
+function createInfo () {
+  const createRandomId = createRandomIdFromRangeGenerator ();
   return {
-    id: createRandomIdFromRangeGenerator (ID_COUNT.min, ID_COUNT.max),
-    url: `photos/${getRandomNumber(1, PICTURES_COUNT)}.jpg`,
-    description: 'DESCRIPTIONS_COUNT',
+    id: createRandomId(ID_COUNT.MIN, ID_COUNT.MAX),
+    url: `photos/${createRandomId(1, PICTURES_COUNT)}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS_COUNT),
     likes: getRandomNumber(LIKES_COUNT.MIN, LIKES_COUNT.MAX),
     comments: getRandomNumber(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX),
   };
 };
 
-const createArray = Array.from({length: PICTURES_COUNT}, createComment);
-console.log(createArray());
+const createArray = Array.from({length: PICTURES_COUNT}, createInfo);
