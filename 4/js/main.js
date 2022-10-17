@@ -9,6 +9,7 @@ const ID_COUNT = {
 };
 const DESCRIPTIONS_COUNT = [
   'Передо мной интересная фотография.',
+  //'Выразительный JS видем в фотографии.',
 ];
 const COMMENTS_COUNT = {
   MIN: 0,
@@ -45,16 +46,17 @@ function createRandomIdFromRangeGenerator (min, max) {
     return currentValue;
   };
 }
+const createRandomId = createRandomIdFromRangeGenerator (ID_COUNT.MIN, ID_COUNT.MAX);
+const createRandomUrl = createRandomIdFromRangeGenerator (1, PICTURES_COUNT);
 
 function createInfo () {
-  const createRandomId = createRandomIdFromRangeGenerator ();
   return {
-    id: createRandomId(ID_COUNT.MIN, ID_COUNT.MAX),
-    url: `photos/${createRandomId(1, PICTURES_COUNT)}.jpg`,
+    id: createRandomId(),
+    url: `photos/${createRandomUrl()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS_COUNT),
     likes: getRandomNumber(LIKES_COUNT.MIN, LIKES_COUNT.MAX),
     comments: getRandomNumber(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX),
   };
 };
 
-const createArray = Array.from({length: PICTURES_COUNT}, createInfo);
+const pictures = Array.from({length: PICTURES_COUNT}, createInfo);
