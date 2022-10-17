@@ -20,7 +20,7 @@ const COMMENTS_COUNT = {
 function getRandomNumber (min, max) {
   min = Math.ceil (min); //минимальное значение округленное до целого
   max = Math.floor (max); //максимальное значение округленное до целого
-  return (max <= min || max < 0 || min < 0) ? NaN : Math.floor (Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+  return (max < min || max < 0 || min < 0) ? NaN : Math.floor (Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
 }
 
 //function getString (testString, minStringLength, maxStringLength) {
