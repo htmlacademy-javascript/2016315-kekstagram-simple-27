@@ -1,6 +1,3 @@
 import './util.js';
 import './data.js';
-
-console.log(
-  createInfo()
-);
+import './popup.js';
