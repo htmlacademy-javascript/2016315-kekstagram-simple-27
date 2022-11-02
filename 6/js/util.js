@@ -1,5 +1,3 @@
-export {getRandomNumber, getRandomArrayElement, createRandomIdFromRangeGenerator};
-
 //https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomNumber (min, max) {
   min = Math.ceil (min); //минимальное значение округленное до целого
@@ -30,3 +28,5 @@ function createRandomIdFromRangeGenerator (min, max) {
     return currentValue;
   };
 }
+
+export {getRandomNumber, getRandomArrayElement, createRandomIdFromRangeGenerator};

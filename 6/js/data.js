@@ -1,5 +1,4 @@
 import {getRandomNumber, getRandomArrayElement, createRandomIdFromRangeGenerator} from './util.js';
-export {InfoPictures};
 
 const PICTURES_COUNT = 25;
 const LIKES_COUNT = {
@@ -32,4 +31,6 @@ function createInfo () {
   };
 };
 
-const InfoPictures = () => Array.from({length: PICTURES_COUNT}, createInfo);
+const infoPictures = () => Array.from({length: PICTURES_COUNT}, createInfo);
+
+export {infoPictures};
