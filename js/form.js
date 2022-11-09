@@ -1,3 +1,5 @@
+import {isEscapeKey} from './util.js';
+
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
@@ -13,6 +15,13 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__text',
   errorTextClass: 'img-upload__text_error',
 });
+
+const onFormSubmit = (evt) => {
+  const isValid = pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
+};
 
 const showModal = () => {
   overlay.classList.remove('hidden');
@@ -32,7 +41,7 @@ const isTextFieldFocused = () =>
   document.activeElement === commentField;
 
 function onEscKeyDown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused()) {
+  if (isEscapeKey && !isTextFieldFocused()) {
     evt.preventDefault();
     hideModal();
   }
@@ -49,4 +58,3 @@ const onFileInputChange = () => {
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 form.addEventListener('submit', onFormSubmit);
-//гитхаб
