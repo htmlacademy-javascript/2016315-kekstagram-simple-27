@@ -58,7 +58,7 @@ const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const updateSlider = () => {
   sliderElement.classList.remove('hidden');
-  sliderElement.noUslider.updateOptions({
+  sliderElement.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
       max: chosenEffect.max,
@@ -87,7 +87,7 @@ const onSliderUpdate = () => {
   if (isDefault()) {
     return;
   }
-  const sliderValue = sliderElement.noUslider.get();
+  const sliderValue = sliderElement.noUiSlider.get();
   image.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   image.classList.add(`effects__preview--${chosenEffect.name}`);
   effectLevel.value = sliderValue;
@@ -110,6 +110,6 @@ noUiSlider.create(sliderElement, {
 updateSlider();
 
 form.addEventListener('change', onFormChange);
-sliderElement.noUslider.on('update', onSliderUpdate);
+sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export {resetEffects};

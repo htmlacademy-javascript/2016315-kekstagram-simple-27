@@ -29,7 +29,7 @@ const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
-  sliderFieldset.style.display = 'none';
+  sliderFieldset.style.display = 'block';
 };
 
 const hideModal = () => {
@@ -47,7 +47,7 @@ const isTextFieldFocused = () =>
   document.activeElement === commentField;
 
 function onEscKeyDown(evt) {
-  if (isEscapeKey && !isTextFieldFocused()) {
+  if (isEscapeKey() && !isTextFieldFocused()) {
     evt.preventDefault();
     hideModal();
   }
