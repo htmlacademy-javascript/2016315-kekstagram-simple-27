@@ -3,6 +3,8 @@ const form = document.querySelector('.img-upload__form');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectLevel = document.querySelector('.effect-level__value');
 
+const effectHidden = document.querySelector('.img-upload__effect-level');
+
 const EFFECTS = [
   {
     name: 'none',
@@ -85,8 +87,10 @@ const onSliderUpdate = () => {
   image.className = '';
   effectLevel.value = '';
   if (isDefault()) {
+    effectHidden.classList.add('hidden');
     return;
   }
+  effectHidden.classList.remove('hidden');
   const sliderValue = sliderElement.noUiSlider.get();
   image.style.filter = `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   image.classList.add(`effects__preview--${chosenEffect.name}`);

@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {resetScale} from './scale.js';
+import {resetEffects} from './effect.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -8,14 +9,10 @@ const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
 const commentField = document.querySelector('.text__description');
 
-const imageContainer = document.querySelector('.img-upload__preview');
-const imageCore = imageContainer.querySelector('img');
-const sliderFieldset = document.querySelector('.img-upload__effect-level');
-
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
-  errorTextClass: 'img-upload__text_error',
+  errorTextClass: 'img-upload__text-error',
 });
 
 const onFormSubmit = (evt) => {
@@ -29,7 +26,6 @@ const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
-  sliderFieldset.style.display = 'block';
 };
 
 const hideModal = () => {
@@ -39,15 +35,14 @@ const hideModal = () => {
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
-  imageCore.style.filter = 'none';
-  sliderFieldset.style.display = 'none';
+  resetEffects();
 };
 
 const isTextFieldFocused = () =>
   document.activeElement === commentField;
 
 function onEscKeyDown(evt) {
-  if (isEscapeKey() && !isTextFieldFocused()) {
+  if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
     hideModal();
   }
