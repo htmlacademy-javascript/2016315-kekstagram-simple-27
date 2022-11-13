@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {resetScale} from './scale.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -6,9 +7,10 @@ const body = document.querySelector('body');
 const cancelButton = document.querySelector('#upload-cancel');
 const fileField = document.querySelector('#upload-file');
 const commentField = document.querySelector('.text__description');
-//const scaleSmaller = document.querySelector('.scale__control--smaller');
-//const scaleBigger = document.querySelector('.scale__control--bigger');
-//const scaleValue = document.querySelector('.scale__control--value');
+
+const imageContainer = document.querySelector('.img-upload__preview');
+const imageCore = imageContainer.querySelector('img');
+const sliderFieldset = document.querySelector('.img-upload__effect-level');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -27,14 +29,18 @@ const showModal = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onEscKeyDown);
+  sliderFieldset.style.display = 'none';
 };
 
 const hideModal = () => {
   form.reset();
+  resetScale();
   pristine.reset();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeyDown);
+  imageCore.style.filter = 'none';
+  sliderFieldset.style.display = 'none';
 };
 
 const isTextFieldFocused = () =>
@@ -58,3 +64,5 @@ const onFileInputChange = () => {
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 form.addEventListener('submit', onFormSubmit);
+
+export {pristine, fileField};
