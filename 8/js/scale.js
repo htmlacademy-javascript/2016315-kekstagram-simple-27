@@ -1,11 +1,7 @@
-//import {fileField} from './form.js';
-//import {onFilterChange} from './slider.js';
-
 const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
 const scaleInput = document.querySelector('.scale__control--value');
 const image = document.querySelector('.img-upload__preview img');
-//const effectsList = document.querySelector('.img-upload__effects');
 
 const SCALE_STEP = 25;
 const MIN_SCALE = 25;
