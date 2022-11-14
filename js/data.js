@@ -29,7 +29,7 @@ function createInfo () {
     likes: getRandomNumber(LIKES_COUNT.MIN, LIKES_COUNT.MAX),
     comments: getRandomNumber(COMMENTS_COUNT.MIN, COMMENTS_COUNT.MAX),
   };
-};
+}
 
 const infoPictures = () => Array.from({length: PICTURES_COUNT}, createInfo);
 
