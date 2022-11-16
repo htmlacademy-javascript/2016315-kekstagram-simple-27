@@ -1,40 +1,37 @@
-import {enableUploadButton} from './form.js';
-
-const ApiUrsl = {
-  ROOT: 'https://27.javascript.pages.academy/kekstagram-simple',
-  DATA: 'https://27.javascript.pages.academy/kekstagram-simple/data'
+const Url = {
+  POST: 'https://27.javascript.pages.academy/kekstagram-simple',
+  GET: 'https://27.javascript.pages.academy/kekstagram-simple/data',
 };
 
-const getData = (onSuccess, onError) => {
-  fetch(ApiUrsl.DATA)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        onError();
-      }
-    })
-    .then(onSuccess)
-    .catch(onError);
-};
+async function getPhotos() {
+  const response = await fetch(Url.GET,
+    {
+      method: 'GET',
+      credentials: 'same-origin',
+    },
+  );
 
-const sendData = (onSuccess, onError, dataForPost) => {
-  fetch(
-    ApiUrsl.ROOT,
+  if (response.ok) {
+    return await response.json();
+  }
+
+  throw new Error(`Ошибка: ${response.status} - ${response.statusText}`);
+}
+
+const sendPhotos = (onSuccess, onFail, body) => {
+  fetch(Url.POST,
     {
       method: 'POST',
-      body: dataForPost,
+      body,
     },
   )
     .then((response) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onError();
+        onFail();
       }
-    })
-    .catch(onError)
-    .finally(enableUploadButton);
+    });
 };
 
-export {getData, sendData};
+export {getPhotos, sendPhotos};
