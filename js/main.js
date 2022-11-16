@@ -4,3 +4,4 @@ import './popup.js';
 import './form.js';
 import './effect.js';
 import './scale.js';
+import './api.js';
