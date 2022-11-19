@@ -1,6 +1,8 @@
 import {isEscapeKey} from './util.js';
 import {resetScale} from './scale.js';
 import {resetEffects} from './effect.js';
+import {sendPhotos} from './api.js';
+import {showStatusModal, ModalType} from './modals.js';
 
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
@@ -14,13 +16,6 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__text',
   errorTextClass: 'img-upload__text-error',
 });
-
-const onFormSubmit = (evt) => {
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-  }
-};
 
 const showModal = () => {
   overlay.classList.remove('hidden');
@@ -41,8 +36,11 @@ const hideModal = () => {
 const isTextFieldFocused = () =>
   document.activeElement === commentField;
 
+const isErrorPopupOpened = () =>
+  document.querySelector('.error');
+
 function onEscKeyDown(evt) {
-  if (isEscapeKey(evt) && !isTextFieldFocused()) {
+  if (isEscapeKey(evt) && !isTextFieldFocused() && !isErrorPopupOpened()) {
     evt.preventDefault();
     hideModal();
   }
@@ -55,6 +53,25 @@ const onCancelButtonClick = () => {
 const onFileInputChange = () => {
   showModal();
 };
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (!isValid) {
+    return;
+  }
+
+  const formData = new FormData(evt.target);
+  sendPhotos(
+    () => {
+      hideModal();
+      showStatusModal(ModalType.success);
+    },
+    () => showStatusModal(ModalType.error),
+    formData
+  );
+};
+
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);

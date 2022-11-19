@@ -1,33 +1,28 @@
-//https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomNumber (min, max) {
-  min = Math.ceil (min); //минимальное значение округленное до целого
-  max = Math.floor (max); //максимальное значение округленное до целого
-  return (max < min || max < 0 || min < 0) ? NaN : Math.floor (Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
+const ESC_KEY = 'Escape';
 
-//function getString (testString, minStringLength, maxStringLength) {
-//  return (testString.length >= minStringLength && testString.length <= maxStringLength);
-//}Функция длины строки
+const isEscapeKey = (evt) => evt.key === ESC_KEY;
 
-const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)]; //Функция элемента в переданном массиве по поиску случайного элемента.
+const showErrorModal = () => {
+  const windowErrorElement = document.createElement('div');
+  const textErrorElement = document.createElement('p');
+  textErrorElement.textContent = 'Что-то пошло совсем не по плану :С Возможно, гремлины украли сервер';
+  textErrorElement.style.color = 'black';
+  windowErrorElement.appendChild(textErrorElement);
+  windowErrorElement.style.position = 'absolute';
+  windowErrorElement.style.top = '50%';
+  windowErrorElement.style.left = '50%';
+  windowErrorElement.style.marginTop = '-100px';
+  windowErrorElement.style.marginLeft = '-200px';
+  windowErrorElement.style.width = '400px';
+  windowErrorElement.style.backgroundColor = 'red';
+  windowErrorElement.style.borderRadius = '8px';
+  windowErrorElement.style.border = '5px solid #ffaaff';
+  windowErrorElement.style.padding = ' 5px 10px';
+  document.body.append(windowErrorElement);
 
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
+  setTimeout(() => {
+    windowErrorElement.remove();
+  }, 5000);
+};
 
-  return function () {
-    let currentValue = getRandomNumber(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomNumber(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-export {getRandomNumber, getRandomArrayElement, createRandomIdFromRangeGenerator, isEscapeKey};
+export {isEscapeKey, showErrorModal};
