@@ -85,6 +85,7 @@ const onFormChange = (evt) => {
 const onSliderUpdate = () => {
   image.style.filter = 'none';
   image.className = '';
+  image.classList.add('img-upload__preview');
   effectLevel.value = '';
   if (isDefault()) {
     effectHidden.classList.add('hidden');
